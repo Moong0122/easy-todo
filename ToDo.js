@@ -82,7 +82,12 @@ export default class ToDo extends React.Component {
                 <Text style={styles.actionText}>✏️</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={() => deleteToDo(id)}>
+            <TouchableOpacity
+              onPressOut={event => {
+                event.stopPropagation();
+                deleteToDo(id);
+              }}
+            >
               <View style={styles.actionContainer}>
                 <Text style={styles.actionText}>❌</Text>
               </View>
@@ -92,7 +97,8 @@ export default class ToDo extends React.Component {
       </View>
     );
   }
-  _toggleComplete = () => {
+  _toggleComplete = event => {
+    event.stopPropagation();
     const { isCompleted, uncompleteToDo, completeToDo, id } = this.props;
     if (isCompleted) {
       uncompleteToDo(id);
@@ -100,11 +106,13 @@ export default class ToDo extends React.Component {
       completeToDo(id);
     }
   };
-  _startEditing = () => {
+  _startEditing = event => {
+    event.stopPropagation();
     // 수정을 하려고 한다면 현재 적혀 있는 값을 저장해놓고 true로 만들어주자
     this.setState({ isEditing: true });
   };
-  _finishEditing = () => {
+  _finishEditing = event => {
+    event.stopPropagation();
     const { toDoValue } = this.state;
     const { id, updateToDo } = this.props;
     updateToDo(id, toDoValue);
