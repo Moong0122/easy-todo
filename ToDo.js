@@ -52,6 +52,7 @@ export default class ToDo extends React.Component {
               returnKeyType={"done"}
               onBlur={this._finishEditing}
               blurOnSubmit={true}
+              underlineColorAndroid={"transparent"}
             />
           ) : (
             <Text
